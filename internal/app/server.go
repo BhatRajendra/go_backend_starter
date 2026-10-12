@@ -3,10 +3,10 @@ package app
 import (
 	"net/http"
 	"os"
-	"slices"
-
+	"sandhi/internal/app/handler"
 	"sandhi/internal/db"
 	"sandhi/internal/logging"
+	"slices"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -74,5 +74,10 @@ func (a *App) Router() http.Handler {
 			"msg": "server is up and running and database in alive",
 		})
 	})
+
+	handler_v1 := handler.NewHandler(a.db, a.q, a.l)
+
+	r.Mount("/api/v1", handler_v1.Routes())
+
 	return r
 }
