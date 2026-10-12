@@ -1,0 +1,40 @@
+#:schema https://json.schemastore.org/any.json
+
+
+
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/sandhi ."
+entrypoint = ["./tmp/sandhi"]
+delay = 700
+stop_on_error = true
+send_interrupt = true
+kill_delay = "500ms"
+
+include_ext = ["go"]
+exclude_dir = ["tmp", "vendor", ".git", "sql"]
+exclude_regex = ["_test\\.go$"]
+
+[log]
+time = true
+
+[misc]
+clean_on_exit = true
+
+[color]
+  app = ""
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
+
+[proxy]
+  app_port = 0
+  enabled = false
+  proxy_port = 0
+
+[screen]
+  clear_on_rebuild = true
+  keep_scroll = false
